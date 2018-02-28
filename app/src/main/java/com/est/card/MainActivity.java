@@ -104,5 +104,26 @@ public class MainActivity extends AppCompatActivity {
         this.dao.insert(new Cidade("Mombaça", "off"));
         this.dao.insert(new Cidade("Iguatu", "off"));
         this.dao.insert(new Cidade("Piquet Carneiro", "off"));
+        this.dao.insert(new Cidade("Ubajara", "off"));
+        this.dao.insert(new Cidade("Sobral", "off"));
+        this.dao.insert(new Cidade("Fortaleza", "off"));
+        this.dao.insert(new Cidade("Quixadá", "off"));
+        this.dao.insert(new Cidade("Quixeramobim", "off"));
+        this.dao.insert(new Cidade("Retiro", "off"));
+        this.dao.insert(new Cidade("Brejo Santo", "off"));
+        this.dao.insert(new Cidade("Crato", "off"));
+        this.dao.insert(new Cidade("Barbalha", "off"));
+        this.dao.insert(new Cidade("Retiro", "off"));
+        this.dao.insert(new Cidade("Crateús", "off"));
+        this.dao.insert(new Cidade("Jardim", "off"));
+        this.dao.insert(new Cidade("Santa Quitéria", "off"));
+        this.dao.insert(new Cidade("Maranguape", "off"));
+        this.dao.insert(new Cidade("Aracatí", "off"));
+        this.dao.insert(new Cidade("Cascavel", "off"));
+        this.dao.insert(new Cidade("Morada Nova", "off"));
+        this.dao.insert(new Cidade("Jucás", "off"));
+        this.dao.insert(new Cidade("Quixelô", "off"));
+        this.dao.insert(new Cidade("Juazeiro do Norte", "off"));
+        this.dao.insert(new Cidade("Barbalha", "off"));
     }
 }
