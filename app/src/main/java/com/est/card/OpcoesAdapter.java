@@ -77,17 +77,15 @@ public class OpcoesAdapter extends BaseAdapter {
         return rowView;
     }
 
-    private void selecionaOpcoes(View view, String o){
+    private void selecionaOpcoes(View view, String nomeCidade){
         Switch op = (Switch) view;
         if(op.getText().toString().equals(p.recupera(op.getText().toString()))){
             if(op.isChecked()){
                 p.grava(p.recupera(op.getText().toString()), "on");
-                this.dao.updateCidade(o, "on");
-                //this.dao.update(new Cidade(o, "on"));
+                this.dao.updateCidade(nomeCidade, "on");
             }else{
                 p.grava(p.recupera(op.getText().toString()), "off");
-                this.dao.updateCidade(o, "off");
-                //this.dao.update(new Cidade(o, "off"));
+                this.dao.updateCidade(nomeCidade, "off");
             }
         }
     }
