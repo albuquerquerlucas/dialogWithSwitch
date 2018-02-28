@@ -20,6 +20,7 @@ public class CidadesAdapter extends BaseAdapter {
     private static LayoutInflater mInflater = null;
     private List<Cidade> lista;
     private Context context;
+    private String flag;
 
     public CidadesAdapter(List<Cidade> lista, Context context) {
         this.lista = lista;
@@ -45,18 +46,31 @@ public class CidadesAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder = new ViewHolder();
+        final ViewHolder holder = new ViewHolder();
         View rowView = convertView;
         rowView = mInflater.inflate(R.layout.item_layou, null);
 
         holder.txtCidade = (TextView) rowView.findViewById(R.id.txt_texto);
         holder.imgClick = (ImageView) rowView.findViewById(R.id.img_click);
+        holder.txtNumber = (TextView) rowView.findViewById(R.id.txt_number_generate);
+        holder.imgDel = (ImageView) rowView.findViewById(R.id.img_del);
 
         holder.txtCidade.setText(lista.get(position).getCidade());
         holder.imgClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "" + lista.get(position).getCidade(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "" + lista.get(position).getCidade(), Toast.LENGTH_SHORT).show();
+                flag = lista.get(position).getCidade();
+                holder.txtNumber.setText(generateNumber(flag));
+                holder.imgDel.setVisibility(View.VISIBLE);
+
+                holder.imgDel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        holder.txtNumber.setText("");
+                        holder.imgDel.setVisibility(View.GONE);
+                    }
+                });
             }
         });
 
@@ -66,5 +80,13 @@ public class CidadesAdapter extends BaseAdapter {
     public class ViewHolder{
         TextView txtCidade;
         ImageView imgClick;
+        TextView txtNumber;
+        ImageView imgDel;
+    }
+
+    public String generateNumber(String flag){
+        Toast.makeText(context, "" + flag, Toast.LENGTH_SHORT).show();
+        long numero = (int) (Math.random() * 9999);
+        return String.valueOf(numero);
     }
 }
