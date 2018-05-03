@@ -1,4 +1,4 @@
-package com.est.card;
+package com.est.card.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.est.card.entity.Cidade;
+import com.est.card.R;
 
 import java.util.List;
 

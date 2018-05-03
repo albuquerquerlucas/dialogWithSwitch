@@ -1,4 +1,4 @@
-package com.est.card;
+package com.est.card.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Switch;
 
-import java.util.ArrayList;
+import com.est.card.entity.Cidade;
+import com.est.card.util.Pref;
+import com.est.card.R;
+import com.est.card.banco.HelperDAO;
+
 import java.util.List;
 
 /**

@@ -1,4 +1,4 @@
-package com.est.card;
+package com.est.card.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -8,6 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.est.card.R;
+import com.est.card.adapter.CidadesAdapter;
+import com.est.card.adapter.OpcoesAdapter;
+import com.est.card.banco.HelperDAO;
+import com.est.card.entity.Cidade;
+import com.est.card.util.Pref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         this.dao.insert(new Cidade("Acopiara", "off"));
         this.dao.insert(new Cidade("Catarina", "off"));
         this.dao.insert(new Cidade("Mombaça", "off"));
-        this.dao.insert(new Cidade("Iguatu", "off"));
+        /*this.dao.insert(new Cidade("Iguatu", "off"));
         this.dao.insert(new Cidade("Piquet Carneiro", "off"));
         this.dao.insert(new Cidade("Ubajara", "off"));
         this.dao.insert(new Cidade("Sobral", "off"));
@@ -124,6 +131,6 @@ public class MainActivity extends AppCompatActivity {
         this.dao.insert(new Cidade("Jucás", "off"));
         this.dao.insert(new Cidade("Quixelô", "off"));
         this.dao.insert(new Cidade("Juazeiro do Norte", "off"));
-        this.dao.insert(new Cidade("Barbalha", "off"));
+        this.dao.insert(new Cidade("Barbalha", "off"));*/
     }
 }

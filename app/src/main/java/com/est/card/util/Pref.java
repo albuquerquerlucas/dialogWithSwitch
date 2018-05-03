@@ -1,4 +1,4 @@
-package com.est.card;
+package com.est.card.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
