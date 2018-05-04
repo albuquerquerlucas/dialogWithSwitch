@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.est.card.banco.HelperDAO;
 import com.est.card.entity.Cidade;
 import com.est.card.R;
 
@@ -32,11 +33,13 @@ public class CidadesAdapter extends BaseAdapter {
     private Context context;
     private String flag;
     public File imgFile;
+    private HelperDAO dao;
 
     public CidadesAdapter(List<Cidade> lista, Context context) {
         this.lista = lista;
         this.context = context;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.dao = new HelperDAO(context);
     }
 
     @Override
@@ -67,16 +70,15 @@ public class CidadesAdapter extends BaseAdapter {
         holder.imgDel = (ImageView) rowView.findViewById(R.id.img_del);
 
         holder.txtCidade.setText(lista.get(position).getCidade());
+        holder.txtNumber.setText(mountNameImage(lista.get(position).getImagem()));
 
-
-        if(imgFile != null && imgFile.exists()){
-            holder.txtNumber.setText(imgFile.getPath());
+        if(!lista.get(position).getImagem().equals("")){
             holder.imgDel.setVisibility(View.VISIBLE);
-
             holder.imgDel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     holder.txtNumber.setText("");
+                    dao.deleteFiles(lista.get(position).getCidade(), lista.get(position).getImagem());
                     holder.imgDel.setVisibility(View.GONE);
                 }
             });
@@ -85,20 +87,8 @@ public class CidadesAdapter extends BaseAdapter {
         holder.imgClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(context, "" + lista.get(position).getCidade(), Toast.LENGTH_SHORT).show();
                 flag = lista.get(position).getCidade();
-                holder.txtNumber.setText(generateNumber(flag));
-                //holder.imgDel.setVisibility(View.VISIBLE);
-
-                callCamera();
-
-               /*holder.imgDel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        holder.txtNumber.setText("");
-                        holder.imgDel.setVisibility(View.GONE);
-                    }
-                });*/
+                callCamera(lista.get(position).getCidade());
             }
         });
 
@@ -112,23 +102,24 @@ public class CidadesAdapter extends BaseAdapter {
         ImageView imgDel;
     }
 
-    public String generateNumber(String flag){
-        Toast.makeText(context, "" + flag, Toast.LENGTH_SHORT).show();
-        long numero = (int) (Math.random() * 9999);
-        return String.valueOf(numero);
-    }
-
-    public void callCamera(){
-        String diretorio = Environment.getExternalStorageDirectory() + "/teste";
+    public void callCamera(String cidade){
+        String diretorio = Environment.getExternalStorageDirectory() + "/cidades";
         File dir = new File(diretorio);
         if (!dir.exists()) {dir.mkdirs();}
-        imgFile = new File(dir,  "teste.png");
+        imgFile = new File(dir,  cidade + ".png");
         Uri temp = FileProvider.getUriForFile(this.context, "com.est.card.fileprovider", imgFile);
+        this.dao.updateImagem(cidade, imgFile.getPath());
 
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         if(cameraIntent.resolveActivity(this.context.getPackageManager()) != null){
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, temp);
             ((Activity) this.context).startActivityForResult(cameraIntent, 1);
         }
+    }
+
+    public String mountNameImage(String enderecoCompleto){
+
+        String[] palavra = enderecoCompleto.split("/");
+        return (palavra[palavra.length-1]);
     }
 }
