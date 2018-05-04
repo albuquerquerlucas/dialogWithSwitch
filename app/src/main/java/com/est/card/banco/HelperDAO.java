@@ -43,9 +43,9 @@ public class HelperDAO {
         this.db.close();
     }
 
-    public void updateImagem(String nome, String imagem){
+    public void updateImagem(String cidade, String imagem){
         this.db = helper.getReadableDatabase();
-        String sql = "update app set imagem = " + "\'" + imagem + "\'" + " where cidade = " + "\'" + nome + "\'";
+        String sql = "update app set imagem = " + "\'" + imagem + "\'" + " where cidade = " + "\'" + cidade + "\'";
         this.db.execSQL(sql);
         this.db.close();
     }
