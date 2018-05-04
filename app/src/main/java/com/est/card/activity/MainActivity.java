@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
         String[] permissoes = {
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_FINE_LOCATION
         };
 
         Permissoes.validate(this, 0, permissoes);
@@ -136,24 +137,26 @@ public class MainActivity extends AppCompatActivity {
                 break;
                 case Activity.RESULT_CANCELED:
                     Toast.makeText(MainActivity.this, "Cancelado pelo usuário", Toast.LENGTH_SHORT).show();
+                    // Solução pra contornar o retorno do 'data.getData() == null';
+                    this.dao.updateImagem(p.recupera("city_go"), "");
                 break;
             }
         }
     }
 
     private void popularBanco(){
-        this.dao.insert(new Cidade("Acopiara", "off", ""));
+        /*this.dao.insert(new Cidade("Acopiara", "off", ""));
         this.dao.insert(new Cidade("Catarina", "off", ""));
         this.dao.insert(new Cidade("Mombaça", "off", ""));
         this.dao.insert(new Cidade("Iguatu", "off", ""));
-        this.dao.insert(new Cidade("Piquet Carneiro", "off", ""));
-        /*this.dao.insert(new Cidade("Ubajara", "off"));
-        this.dao.insert(new Cidade("Sobral", "off"));
-        this.dao.insert(new Cidade("Fortaleza", "off"));
-        this.dao.insert(new Cidade("Quixadá", "off"));
-        this.dao.insert(new Cidade("Quixeramobim", "off"));
-        this.dao.insert(new Cidade("Retiro", "off"));
-        this.dao.insert(new Cidade("Brejo Santo", "off"));
+        this.dao.insert(new Cidade("PiquetCarneiro", "off", ""));*/
+        this.dao.insert(new Cidade("Ubajara", "off", ""));
+        this.dao.insert(new Cidade("Sobral", "off", ""));
+        this.dao.insert(new Cidade("Fortaleza", "off", ""));
+        this.dao.insert(new Cidade("Quixadá", "off", ""));
+        this.dao.insert(new Cidade("Quixeramobim", "off", ""));
+        this.dao.insert(new Cidade("Retiro", "off", ""));
+        /*this.dao.insert(new Cidade("Brejo Santo", "off"));
         this.dao.insert(new Cidade("Crato", "off"));
         this.dao.insert(new Cidade("Barbalha", "off"));
         this.dao.insert(new Cidade("Retiro", "off"));
