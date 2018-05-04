@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.est.card.banco.HelperDAO;
 import com.est.card.entity.Cidade;
 import com.est.card.R;
+import com.est.card.util.Pref;
 
 import java.io.File;
 import java.util.List;
@@ -34,12 +36,14 @@ public class CidadesAdapter extends BaseAdapter {
     private String flag;
     public File imgFile;
     private HelperDAO dao;
+    private Pref pref;
 
     public CidadesAdapter(List<Cidade> lista, Context context) {
         this.lista = lista;
         this.context = context;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.dao = new HelperDAO(context);
+        this.pref = new Pref(context);
     }
 
     @Override
@@ -109,6 +113,7 @@ public class CidadesAdapter extends BaseAdapter {
         imgFile = new File(dir,  cidade + ".png");
         Uri temp = FileProvider.getUriForFile(this.context, "com.est.card.fileprovider", imgFile);
         this.dao.updateImagem(cidade, imgFile.getPath());
+        pref.grava("city_go", cidade);
 
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         if(cameraIntent.resolveActivity(this.context.getPackageManager()) != null){
