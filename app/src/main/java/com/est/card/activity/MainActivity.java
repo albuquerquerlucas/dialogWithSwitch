@@ -1,21 +1,30 @@
 package com.est.card.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.est.card.R;
 import com.est.card.adapter.CidadesAdapter;
 import com.est.card.adapter.OpcoesAdapter;
 import com.est.card.banco.HelperDAO;
 import com.est.card.entity.Cidade;
+import com.est.card.util.Permissoes;
 import com.est.card.util.Pref;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private HelperDAO dao;
     private Pref p;
-    private Cidade cidade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        solicitaPermissoes();
         this.p = new Pref(this);
         this.dao = new HelperDAO(this);
 
@@ -60,6 +69,16 @@ public class MainActivity extends AppCompatActivity {
         carregaCards();
     }
 
+    private void solicitaPermissoes(){
+        String[] permissoes = {
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+        };
+
+        Permissoes.validate(this, 0, permissoes);
+    }
+
     private void carregaCards(){
 
         listaCidadesConformeOpcoes = new ArrayList<>();
@@ -71,10 +90,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             cidadesAdapter = new CidadesAdapter(listaCidadesConformeOpcoes, this);
+            File file = new File(Environment.getExternalStorageDirectory() + "/teste/teste.png");
+            cidadesAdapter.imgFile = file;
             lista.setAdapter(cidadesAdapter);
-            //cidadesAdapter.notifyDataSetChanged();
+            cidadesAdapter.notifyDataSetChanged();
         }
     }
+
 
     private List<Cidade> getCidades(){
 
@@ -105,13 +127,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    carregaCards();
+                break;
+                case Activity.RESULT_CANCELED:
+                    Toast.makeText(MainActivity.this, "Cancelado pelo usuário", Toast.LENGTH_SHORT).show();
+                break;
+            }
+        }
+    }
+
     private void popularBanco(){
         this.dao.insert(new Cidade("Acopiara", "off"));
         this.dao.insert(new Cidade("Catarina", "off"));
         this.dao.insert(new Cidade("Mombaça", "off"));
-        /*this.dao.insert(new Cidade("Iguatu", "off"));
+        this.dao.insert(new Cidade("Iguatu", "off"));
         this.dao.insert(new Cidade("Piquet Carneiro", "off"));
-        this.dao.insert(new Cidade("Ubajara", "off"));
+        /*this.dao.insert(new Cidade("Ubajara", "off"));
         this.dao.insert(new Cidade("Sobral", "off"));
         this.dao.insert(new Cidade("Fortaleza", "off"));
         this.dao.insert(new Cidade("Quixadá", "off"));
