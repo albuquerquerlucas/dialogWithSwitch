@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private HelperDAO dao;
     private Pref p;
+    private File imgRecuperada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,13 +91,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             cidadesAdapter = new CidadesAdapter(listaCidadesConformeOpcoes, this);
-            File file = new File(Environment.getExternalStorageDirectory() + "/teste/teste.png");
-            cidadesAdapter.imgFile = file;
             lista.setAdapter(cidadesAdapter);
             cidadesAdapter.notifyDataSetChanged();
         }
     }
-
 
     private List<Cidade> getCidades(){
 
@@ -144,11 +142,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void popularBanco(){
-        this.dao.insert(new Cidade("Acopiara", "off"));
-        this.dao.insert(new Cidade("Catarina", "off"));
-        this.dao.insert(new Cidade("Mombaça", "off"));
-        this.dao.insert(new Cidade("Iguatu", "off"));
-        this.dao.insert(new Cidade("Piquet Carneiro", "off"));
+        this.dao.insert(new Cidade("Acopiara", "off", ""));
+        this.dao.insert(new Cidade("Catarina", "off", ""));
+        this.dao.insert(new Cidade("Mombaça", "off", ""));
+        this.dao.insert(new Cidade("Iguatu", "off", ""));
+        this.dao.insert(new Cidade("Piquet Carneiro", "off", ""));
         /*this.dao.insert(new Cidade("Ubajara", "off"));
         this.dao.insert(new Cidade("Sobral", "off"));
         this.dao.insert(new Cidade("Fortaleza", "off"));
