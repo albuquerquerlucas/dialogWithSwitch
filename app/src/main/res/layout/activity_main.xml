@@ -21,7 +21,9 @@
         android:padding="8dp"
         android:layout_below="@+id/btn_opcoes"
         android:divider="#ffffff"
-        android:listSelector="@android:color/transparent">
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none"
+        android:scrollbarStyle="insideOverlay">
 
     </ListView>
 </RelativeLayout>
