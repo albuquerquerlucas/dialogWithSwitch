@@ -10,10 +10,12 @@ public class Cidade implements Serializable {
 
     private String cidade;
     private String status;
+    private String imagem;
 
-    public Cidade(String cidade, String status) {
+    public Cidade(String cidade, String status, String imagem) {
         this.cidade = cidade;
         this.status = status;
+        this.imagem = imagem;
     }
 
     public String getCidade() {
@@ -30,5 +32,13 @@ public class Cidade implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }
